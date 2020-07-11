@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" title="Cool stylesheet" href="index.css">
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>I want this video</title>
+</head>
+
+<body>
+  <div id="title"> <h1>I want this video.</h1> </div>
+  
+  <div id="sign-in">
+      <button id="login-btn" style="display: none;">Sign in</button>
+      <div id="signed-in" style="display: none;">
+        Signed in as
+        <img id="user-pic" style="display: none;"></img>
+      </div>
+      <button id="logout-btn" style="display: none;">Sign out</button>
+  </div>
+  
+  <br>
+
+	<div id="input" style="display: none;">
+    <p id="loading">Loading</p>
+    <p id="no-accs" style="display: none;">No accounts found</p>
+    <div id="retrieve" style="display: none;">Retrieve videos</div>
+  </div>
+
+  <div id="flip-page" style="display: none;">
+    <div class="flip" id="left"></div>
+    <div class="flip" id="right"></div>
+  </div>
+
+  <div id="results"> </div>
+  
+  <!-- <script src="client.js"></script> -->
+  <script src="client-test.js"></script>
+</body>
+
+</html>
