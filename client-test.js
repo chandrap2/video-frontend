@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let auth_window;
 
+    let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
+
     /**
      *
      * EVENT HANDLERS
@@ -251,8 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
      * 
      * @param {String} url 
      */
-    function sendHttpGetReq(url) {
-        return fetch(url, { credentials: "include" })
+    function sendHttpGetReq(endpoint) {
+        return fetch(apiURL + endpoint, { credentials: "include" })
         .then(res => res.json());
     }
 
@@ -300,6 +302,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let vals = cks.split(/=|; /);
         return [vals[1], vals[3]];
     }
+
+    // function fetchEndpoint(endpoint) {
+    //     return apiURL + "endpoint";
+    // }
 
     // function removeListener(element, listener) {
     
