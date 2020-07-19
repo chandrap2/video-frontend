@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let auth_window;
 
     let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
-
+    
     /**
      *
      * EVENT HANDLERS
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sendHttpGetReq("/get_req_token")
         .then(res => {
             let req_token = res;
-            // console.log(req_token);
+            console.log(req_token);
 
             let url = new URL("https://api.twitter.com/oauth/authenticate");
             url.searchParams.set("oauth_token", req_token.oauth_token);
