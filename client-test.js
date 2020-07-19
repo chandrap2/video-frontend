@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let url = new URL("https://api.twitter.com/oauth/authenticate");
                 url.searchParams.set("oauth_token", req_token.oauth_token);
+                console.log(url);
 
                 let params = "menubar=no,toolbar=no,width=600,height=600";
                 auth_window = window.open(url, "test", params);
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .then(res => signedIn(res))
-        .catch((err) => {
+        .catch(err => {
             console.log(err);
 
             waitForLogin()
@@ -256,8 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     async function sendHttpGetReq(endpoint) {
         let response = await fetch(apiURL + endpoint, { credentials: "include" });
-        console.log("response:", typeof(response))
-        return await response.json();
+        // console.log("response:", typeof(response))
+        return response;
     }
 
     /**
