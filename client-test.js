@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sendHttpGetReq("/verify")
         .then(res => {
-            console.log(res, typeof res);
+            // console.log(res, typeof res);
             if (Object.keys(res).length != 0) { // verified
                 return res;
             } else { // not verified
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function sendHttpGetReq(endpoint) {
         let response = await fetch(apiURL + endpoint, { credentials: "include" });
         // console.log("response:", typeof(response))
-        return response;
+        return await response.json();
     }
 
     /**
