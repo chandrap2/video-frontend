@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let loading = document.getElementById("loading");
     let retrieveBtn = document.getElementById("retrieve");
     let results_area = document.getElementById("results");
-    
+
     let auth_window;
 
     let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
-    
+
     /**
      *
      * EVENT HANDLERS
@@ -26,16 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     signinBtn.addEventListener("click", () => {
         sendHttpGetReq("/get_req_token")
-        .then(res => {
-            let req_token = res;
-            console.log(req_token);
+            .then(res => {
+                let req_token = res;
+                console.log(req_token);
 
-            let url = new URL("https://api.twitter.com/oauth/authenticate");
-            url.searchParams.set("oauth_token", req_token.oauth_token);
+                let url = new URL("https://api.twitter.com/oauth/authenticate");
+                url.searchParams.set("oauth_token", req_token.oauth_token);
 
-            let params = "menubar=no,toolbar=no,width=600,height=600";
-            auth_window = window.open(url, "test", params);
-        });
+                let params = "menubar=no,toolbar=no,width=600,height=600";
+                auth_window = window.open(url, "test", params);
+            });
     });
 
     retrieveBtn.addEventListener("click", () => {
@@ -52,30 +52,30 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < ACC_LIMIT; i++) {
             // for (let i = 29; i >= 0; i--) {
             sendHttpGetReq(`/get_vids?acc_name=${accs[i].screen_name}&id=${i}`)
-            .then(res => {
-                j++;
-                // console.log(res);
-                outputResults(res, page);
-    
-                if (page.childElementCount == 16) {
-                    pages.push(page);
-                    page = document.createElement("div");
-                    if (pages.length == 1) results_area.appendChild(pages[0]);
-                }
-    
-                if (j == ACC_LIMIT) {
-                    setTimeout(() => {
-                        loading.style.display = "none";
-                        retrieveBtn.style.display = "";
-    
-                        if (page.childElementCount % 16 != 0) {
-                            console.log(pages);
-                            pages.push(page);
-                            if (pages.length == 1) results_area.appendChild(pages[0]);
-                        }
-                    }, 500);
-                }
-            });
+                .then(res => {
+                    j++;
+                    // console.log(res);
+                    outputResults(res, page);
+
+                    if (page.childElementCount == 16) {
+                        pages.push(page);
+                        page = document.createElement("div");
+                        if (pages.length == 1) results_area.appendChild(pages[0]);
+                    }
+
+                    if (j == ACC_LIMIT) {
+                        setTimeout(() => {
+                            loading.style.display = "none";
+                            retrieveBtn.style.display = "";
+
+                            if (page.childElementCount % 16 != 0) {
+                                console.log(pages);
+                                pages.push(page);
+                                if (pages.length == 1) results_area.appendChild(pages[0]);
+                            }
+                        }, 500);
+                    }
+                });
         }
     });
 
@@ -94,34 +94,34 @@ document.addEventListener("DOMContentLoaded", () => {
         results_area.innerHTML = "";
         results_area.appendChild(df);
     });
-    
+
     /**
      *
      * WEBSITE STATE FLOW
      * *********************
      * 
      */
-    
+
     sendHttpGetReq("/verify")
-    .then(res => {
-        console.log(res, typeof res);
-        if (Object.keys(res).length != 0) { // verified
-            return res;
-        } else { // not verified
-            signinBtn.style.display = "";
-            return Promise.reject("Not signed in");
-        }
-    })
-    .then(res => signedIn(res))
-    .catch((err) => {
-        console.log(err);
-        
-        waitForLogin()
-        .then(res => sendHttpGetReq("/verify"))
+        .then(res => {
+            console.log(res, typeof res);
+            if (Object.keys(res).length != 0) { // verified
+                return res;
+            } else { // not verified
+                signinBtn.style.display = "";
+                return Promise.reject("Not signed in");
+            }
+        })
         .then(res => signedIn(res))
-        .catch(console.error);
-    });
-    
+        .catch((err) => {
+            console.log(err);
+
+            waitForLogin()
+                .then(res => sendHttpGetReq("/verify"))
+                .then(res => signedIn(res))
+                .catch(console.error);
+        });
+
     /**
      * 
      * HELPER FUNCTIONS
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return new Promise(res => {
             let checkCookie = setInterval(() => {
                 console.log("checking if cookies exist");
-    
+
                 if (auth_window && getCookies().length == 2) {
                     console.log("cookies found");
                     auth_window.close();
@@ -155,8 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log("signed in");
 
         showSignedInStatus(user)
-        .then(res => getAccs())
-        .catch(console.error);
+            .then(res => getAccs())
+            .catch(console.error);
     }
 
 
@@ -167,18 +167,18 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function showSignedInStatus(user) {
         signinBtn.style.display = "none";
-        
+
         user_pic = document.getElementById("user-pic");
         user_pic.setAttribute("src", user.profile_image_url_https);
         user_pic.style.display = "";
-        
+
         document.getElementById("signed-in").style.display = "";
         document.getElementById("signed-in").style.paddingRight = "16px";
         input.style.display = "";
-        
+
         return Promise.resolve();
     }
-    
+
     /**
      * Acquire list of friend 'user' objects
      */
@@ -186,77 +186,77 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log("getting accs");
 
         sendHttpGetReq("/get_accs")
-        .then(res => {
-            // let results = res;
-            accs = res.accs;
-            
-            if (accs.length > 0) {
-                // accs = results.accs;
-                accs.forEach(acc => {
-                    let box = document.createElement("div");
-                    box.className = "result";
-                    
-                    let acc_header = document.createElement("div");
-                    acc_header.className = "acc_header";
-                    
-                    let accInfo = document.createElement("h2");
-                    accInfo.textContent = `${acc.name} (@${acc.screen_name})`;
-                    
-                    let prof_pic = document.createElement("img");
-                    let pic_url = acc.profile_image_url_https;
-                    let format;
-                    if (pic_url[pic_url.length - 4] == ".") {
-                        format = pic_url.substring(pic_url.length - 4);
-                    } else {
-                        format = pic_url.substring(pic_url.length - 5);
-                    }
-                    pic_url = pic_url.substring(0, pic_url.length - pic_url_mod - format.length) + "_bigger" + format;
-                    prof_pic.setAttribute("src", pic_url);
-                    
-                    // let space = document.createElement("div");
-                    // space.className = "space";
-                    let toggle_btn = document.createElement("div");
-                    toggle_btn.className = "collapse";
-                    toggle_btn.addEventListener("click", () => {
-                        let vids = box.children[2];
-                        dropped_down = (vids.style.display == "");
-                        
-                        vids.style.display = (dropped_down) ? "none" : "";
+            .then(res => {
+                // let results = res;
+                accs = res.accs;
+
+                if (accs.length > 0) {
+                    // accs = results.accs;
+                    accs.forEach(acc => {
+                        let box = document.createElement("div");
+                        box.className = "result";
+
+                        let acc_header = document.createElement("div");
+                        acc_header.className = "acc_header";
+
+                        let accInfo = document.createElement("h2");
+                        accInfo.textContent = `${acc.name} (@${acc.screen_name})`;
+
+                        let prof_pic = document.createElement("img");
+                        let pic_url = acc.profile_image_url_https;
+                        let format;
+                        if (pic_url[pic_url.length - 4] == ".") {
+                            format = pic_url.substring(pic_url.length - 4);
+                        } else {
+                            format = pic_url.substring(pic_url.length - 5);
+                        }
+                        pic_url = pic_url.substring(0, pic_url.length - pic_url_mod - format.length) + "_bigger" + format;
+                        prof_pic.setAttribute("src", pic_url);
+
+                        // let space = document.createElement("div");
+                        // space.className = "space";
+                        let toggle_btn = document.createElement("div");
+                        toggle_btn.className = "collapse";
+                        toggle_btn.addEventListener("click", () => {
+                            let vids = box.children[2];
+                            dropped_down = (vids.style.display == "");
+
+                            vids.style.display = (dropped_down) ? "none" : "";
+                        });
+
+                        // acc_header.appendChild(space);
+                        acc_header.appendChild(prof_pic);
+                        acc_header.appendChild(accInfo);
+                        acc_header.appendChild(toggle_btn);
+
+                        box.appendChild(acc_header);
+                        box.appendChild(document.createElement("br"));
+
+                        acc.box = box;
                     });
-                    
-                    // acc_header.appendChild(space);
-                    acc_header.appendChild(prof_pic);
-                    acc_header.appendChild(accInfo);
-                    acc_header.appendChild(toggle_btn);
-                    
-                    box.appendChild(acc_header);
-                    box.appendChild(document.createElement("br"));
-                    
-                    acc.box = box;
-                });
-                // results_area.appendChild(df);
-                console.log(`done processing, ${accs.length} accs found`);
-                
-                loading.style.display = "none";
-                retrieveBtn.style.display = "";
-                
-                ACC_LIMIT = accs.length;
-                // ACC_LIMIT = 50;
-            } else {
-                loading.style.display = "none";
-                document.getElementById("no-accs").style.display = "";
-            }
-        });
+                    // results_area.appendChild(df);
+                    console.log(`done processing, ${accs.length} accs found`);
+
+                    loading.style.display = "none";
+                    retrieveBtn.style.display = "";
+
+                    ACC_LIMIT = accs.length;
+                    // ACC_LIMIT = 50;
+                } else {
+                    loading.style.display = "none";
+                    document.getElementById("no-accs").style.display = "";
+                }
+            });
     }
-    
+
     /**
      * Send GET request to server and return JSON reponse
      * 
      * @param {String} url 
      */
-    function sendHttpGetReq(endpoint) {
+    async function sendHttpGetReq(endpoint) {
         return fetch(apiURL + endpoint, { credentials: "include" })
-        .then(res => {console.log("lol", endpoint);; res.json()});
+            .then(res => { console.log("lol", endpoint, res); res.json() });
     }
 
     /**
@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function getCookies() {
         let cks = document.cookie;
         if (cks == "") return [];
-        
+
         let vals = cks.split(/=|; /);
         return [vals[1], vals[3]];
     }
@@ -309,10 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // }
 
     // function removeListener(element, listener) {
-    
+
     // }
-    
+
     // function toggleEleme(element) {
-        
+
     // }
 });
