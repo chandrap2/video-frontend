@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     sendHttpGetReq("/verify")
     .then(res => {
+        console.log(res, typeof res);
         if (Object.keys(res).length != 0) { // verified
             return res;
         } else { // not verified
