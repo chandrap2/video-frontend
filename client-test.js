@@ -255,8 +255,9 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {String} url 
      */
     async function sendHttpGetReq(endpoint) {
-        return fetch(apiURL + endpoint, { credentials: "include" })
-            .then(res => { console.log("lol", endpoint, res); res.json() });
+        let response = await fetch(apiURL + endpoint, { credentials: "include" });
+        console.log("response:", typeof(response))
+        return await response.json();
     }
 
     /**
