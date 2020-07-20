@@ -34,15 +34,16 @@
       
       document.addEventListener("DOMContentLoaded", async () => {
         let windowQuery = new URLSearchParams(window.location.search);
-        console.log(windowQuery.get("oauth_token"));
-        console.log(windowQuery.get("oauth_verifier"));
+        // let token = windowQuery.get("oauth_token");
+        // let verifier = windowQuery.get("oauth_verifier");
         // let token = windowQuery.get("")
         
-        // let apiURL =
-        //   new URL("https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production/redir");
-        // apiURL.searchParams.set()
+        let apiURL =
+          new URL("https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production/redir");
+        apiURL.searchParams.set("oauth_token", windowQuery.get("oauth_token"));
+        apiURL.searchParams.set("oauth_verifier", windowQuery.get("oauth_verifier"));
 
-        // let response = await fetch(apiURL + "/redir", { credentials: "include" });
+        let response = await fetch(apiURL, { credentials: "include" });
       });
     </script>
   </div>
