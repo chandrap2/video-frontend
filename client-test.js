@@ -104,24 +104,24 @@ document.addEventListener("DOMContentLoaded", () => {
      */
 
     sendHttpGetReq("/verify")
-        .then(res => {
-            // console.log(res, typeof res);
-            if (Object.keys(res).length != 0) { // verified
-                return res;
-            } else { // not verified
-                signinBtn.style.display = "";
-                return Promise.reject("Not signed in");
-            }
-        })
-        .then(res => signedIn(res))
-        .catch(err => {
-            console.log(err);
+    .then(res => {
+        // console.log(res, typeof res);
+        if (Object.keys(res).length != 0) { // verified
+            return res;
+        } else { // not verified
+            signinBtn.style.display = "";
+            return Promise.reject("Not signed in");
+        }
+    })
+    .then(res => signedIn(res))
+    .catch(err => {
+        console.log(err);
 
-            waitForLogin()
-                .then(res => sendHttpGetReq("/verify"))
-                .then(res => signedIn(res))
-                .catch(console.error);
-        });
+        waitForLogin()
+            .then(res => sendHttpGetReq("/verify"))
+            .then(res => signedIn(res))
+            .catch(console.error);
+    });
 
     /**
      * 
@@ -137,12 +137,26 @@ document.addEventListener("DOMContentLoaded", () => {
             let checkCookie = setInterval(() => {
                 console.log("checking if cookies exist");
 
-                if (auth_window && getCookies().length == 2) {
+                let response = await sendHttpGetReq("/is_logged_in");
+                if (response.signedIn) {
                     console.log("cookies found");
                     auth_window.close();
                     clearInterval(checkCookie);
                     res();
                 }
+                // .then(res => {
+                //     console.log("cookies found");
+                //     auth_window.close();
+                //     clearInterval(checkCookie);
+                //     res();
+                // })
+                // .catch(console.error);
+                // if (auth_window && getCookies().length == 2) {
+                //     console.log("cookies found");
+                //     auth_window.close();
+                //     clearInterval(checkCookie);
+                //     res();
+                // }
             }, 1000);
         });
     }
