@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function waitForLogin() {
         return new Promise(res => {
-            let checkCookie = setInterval(() => {
+            let checkCookie = setInterval(async () => {
                 console.log("checking if cookies exist");
 
                 let response = await sendHttpGetReq("/is_logged_in");
