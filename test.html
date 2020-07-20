@@ -44,6 +44,7 @@
         apiURL.searchParams.set("oauth_verifier", windowQuery.get("oauth_verifier"));
 
         let response = await fetch(apiURL, { credentials: "include" });
+        console.log("cookies:", document.cookie);
       });
     </script>
   </div>
