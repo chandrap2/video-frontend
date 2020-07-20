@@ -138,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("checking if cookies exist");
 
                 let response = await sendHttpGetReq("/is_logged_in");
+                console.log("cookie check:", response);
                 if (response.signedIn) {
                     console.log("cookies found");
                     auth_window.close();
