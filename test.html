@@ -34,7 +34,8 @@
       
       document.addEventListener("DOMContentLoaded", async () => {
         let windowQuery = new URLSearchParams(window.location.search);
-        console.log(windowQuery);
+        console.log(windowQuery.get("oauth_token"));
+        console.log(windowQuery.get("oauth_verifier"));
         // let token = windowQuery.get("")
         
         // let apiURL =
