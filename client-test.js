@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         sendHttpGetReq("/get_req_token")
             .then(res => {
                 let req_token = res;
-                console.log(req_token);
+                // console.log(req_token);
 
                 let url = new URL("https://api.twitter.com/oauth/authenticate");
                 url.searchParams.set("oauth_token", req_token.oauth_token);
-                console.log(url);
+                // console.log(url);
 
                 let params = "menubar=no,toolbar=no,width=600,height=600";
                 auth_window = window.open(url, "test", params);
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             retrieveBtn.style.display = "";
 
                             if (page.childElementCount % 16 != 0) {
-                                console.log(pages);
+                                // console.log(pages);
                                 pages.push(page);
                                 if (pages.length == 1) results_area.appendChild(pages[0]);
                             }
@@ -135,37 +135,18 @@ document.addEventListener("DOMContentLoaded", () => {
     function waitForLogin() {
         return new Promise(res => {
             let checkCookie = setInterval(async () => {
-                console.log("checking if cookies exist");
+                // console.log("checking if cookies exist");
 
                 sendHttpGetReq("/is_logged_in")
                 .then(response => {
-                    console.log("cookie check:", response);
+                    // console.log("cookie check:", response);
                     if (response.signedIn) {
-                        console.log("cookies found");
+                        // console.log("cookies found");
                         auth_window.close();
                         clearInterval(checkCookie);
                         res();
                     }
                 });
-                // if (response.signedIn) {
-                //     console.log("cookies found");
-                //     auth_window.close();
-                //     clearInterval(checkCookie);
-                //     res();
-                // }
-                // .then(res => {
-                //     console.log("cookies found");
-                //     auth_window.close();
-                //     clearInterval(checkCookie);
-                //     res();
-                // })
-                // .catch(console.error);
-                // if (auth_window && getCookies().length == 2) {
-                //     console.log("cookies found");
-                //     auth_window.close();
-                //     clearInterval(checkCookie);
-                //     res();
-                // }
             }, 1000);
         });
     }
@@ -264,8 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     loading.style.display = "none";
                     retrieveBtn.style.display = "";
 
-                    ACC_LIMIT = accs.length;
-                    // ACC_LIMIT = 50;
+                    // ACC_LIMIT = accs.length;
+                    ACC_LIMIT = Math.min(accs.length, 200);
+                    // ACC_LIMIT = Math.min(accs.length, 50);
                 } else {
                     loading.style.display = "none";
                     document.getElementById("no-accs").style.display = "";
@@ -282,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let response = await fetch(apiURL + endpoint, { credentials: "include" });
         // console.log("response:", typeof(response))
         response = await response.json();
-        console.log(`\"${endpoint}\" response:`, response);
+        // console.log(`\"${endpoint}\" response:`, response);
         return response;
     }
 
@@ -330,10 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let vals = cks.split(/=|; /);
         return [vals[1], vals[3]];
     }
-
-    // function fetchEndpoint(endpoint) {
-    //     return apiURL + "endpoint";
-    // }
 
     // function removeListener(element, listener) {
 
