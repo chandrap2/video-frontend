@@ -140,6 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 sendHttpGetReq("/is_logged_in")
                 .then(response => {
                     console.log("cookie check:", response);
+                    if (response.signedIn) {
+                        console.log("cookies found");
+                        auth_window.close();
+                        clearInterval(checkCookie);
+                        res();
+                    }
                 });
                 // if (response.signedIn) {
                 //     console.log("cookies found");
