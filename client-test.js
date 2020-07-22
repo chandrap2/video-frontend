@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     let outputResults = (tweets, df) => {
         let acc = accs[tweets.id];
-        let data = getVids(tweets);
+        let data = getVids(tweets.vids);
 
         if (data.vids && data.vids.length > 0) {
             let box = acc.box;
@@ -297,6 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function getVids(results) {
+        // results = results.vids;
         let output = {};
 
         if (results.length > 0) { // if tweets were returned
