@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // results = results.vids;
         let output = {};
 
-        if (results.length > 0) { // if tweets were returned
+        if (results && results.length > 0) { // if tweets were returned
             output.vids = []
 
             for (i in results) { // look at each tweet
