@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // for (let i = 29; i >= 0; i--) {
             sendHttpGetReq(`/get_vids?acc_name=${accs[i].screen_name}&id=${i}`)
                 .then(res => {
-                    j++;
                     // console.log(res);
                     outputResults(res, page);
+                    j++;
                     console.log(j);
 
                     if (page.childElementCount == 16) {
