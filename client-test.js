@@ -269,7 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     let outputResults = (data, df) => {
         let acc = accs[data.id];
-        // let acc = accs[j];
+        let data = getVids(data);
+
         if (data.vids && data.vids.length > 0) {
             let box = acc.box;
             if (box.childElementCount > 2) box.removeChild(box.lastElementChild); // popping old vids
@@ -293,6 +294,38 @@ document.addEventListener("DOMContentLoaded", () => {
             df.appendChild(box);
             df.appendChild(document.createElement("br"));
         }
+    }
+
+    function getVids(results) {
+        let output = {};
+
+        if (results.length > 0) { // if tweets were returned
+            output.vids = []
+
+            for (i in results) { // look at each tweet
+                let entities = results[i].extended_entities
+                if (entities != undefined &&
+                    entities.media[0].type == "video") { // if tweet contains video
+                    let thumbnail = results[i].entities.media[0].media_url_https;
+                    let vid_obj = { thumbnail: thumbnail };
+
+                    let variants = entities.media[0].video_info.variants; // parse through video metadata
+                    let max_bitrate = -1
+                    let vid = variants[0];
+                    for (j in variants) { // output highest quality video url
+                        if (variants[j].content_type == "video/mp4" &&
+                            variants[j].bitrate > max_bitrate) {
+                            vid = variants[j];
+                            max_bitrate = variants[j].bitrate;
+                        }
+                    } // for (j in varirify_credentials")
+                    vid_obj.vid = vid.url;
+                    output.vids.push(vid_obj);
+                } // if (entities != undefined && ...
+            } // for (i in data)
+        }
+
+        return output;
     }
 
     /**
