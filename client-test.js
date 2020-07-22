@@ -267,9 +267,9 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {Object} data 
      * @param {HTMLElement} df 
      */
-    let outputResults = (data, df) => {
-        let acc = accs[data.id];
-        data = getVids(data);
+    let outputResults = (tweets, df) => {
+        let acc = accs[tweets.id];
+        let data = getVids(tweets);
 
         if (data.vids && data.vids.length > 0) {
             let box = acc.box;
