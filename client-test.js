@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         signinBtn.style.display = "none";
 
         user_pic = document.getElementById("user-pic");
-        user_pic.setAttribute("src", user.profile_image_url_https);
+        user_pic.setAttribute("src", getLargerProfPic(user.profile_image_url_https));
         user_pic.style.display = "";
 
         document.getElementById("signed-in").style.display = "";
@@ -208,14 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         accInfo.textContent = `${acc.name} (@${acc.screen_name})`;
 
                         let prof_pic = document.createElement("img");
-                        let pic_url = acc.profile_image_url_https;
-                        let format;
-                        if (pic_url[pic_url.length - 4] == ".") {
-                            format = pic_url.substring(pic_url.length - 4);
-                        } else {
-                            format = pic_url.substring(pic_url.length - 5);
-                        }
-                        pic_url = pic_url.substring(0, pic_url.length - pic_url_mod - format.length) + "_bigger" + format;
+                        let pic_url = getLargerProfPic(acc.profile_image_url_https);
                         prof_pic.setAttribute("src", pic_url);
 
                         // let space = document.createElement("div");
@@ -311,6 +304,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let vals = cks.split(/=|; /);
         return [vals[1], vals[3]];
+    }
+
+    function getLargerProfPic(url) {
+        let format;
+        if (url[url.length - 4] == ".") {
+            format = url.substring(url.length - 4);
+        } else {
+            format = url.substring(url.length - 5);
+        }
+        url = url.substring(0, url.length - pic_url_mod - format.length) + "_bigger" + format;
+        
+        return url;
     }
 
     // function removeListener(element, listener) {
