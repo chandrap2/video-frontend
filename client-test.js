@@ -325,6 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } // for (i in data)
         }
 
+        console.log(output, "\n");
         return output;
     }
 
