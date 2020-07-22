@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     let outputResults = (data, df) => {
         let acc = accs[data.id];
-        let data = getVids(data);
+        data = getVids(data);
 
         if (data.vids && data.vids.length > 0) {
             let box = acc.box;
