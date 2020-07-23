@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // console.log(res);
                     outputResults(res, page);
                     j++;
-                    console.log(j);
+                    console.log(j, res.id);
 
                     if (page.childElementCount == 16) {
                         pages.push(page);
