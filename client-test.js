@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             sendHttpGetReq(`/get_vids?acc_name=${accs[i].screen_name}&id=${i}`)
                 .then(res => {
                     j++;
+                    console.log(j);
                     // console.log(res);
                     outputResults(res, page);
 
