@@ -314,11 +314,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     let variants = entities.media[0].video_info.variants; // parse through video metadata
                     let max_bitrate = -1
                     let vid = variants[0];
-                    for (j in variants) { // output highest quality video url
-                        if (variants[j].content_type == "video/mp4" &&
-                            variants[j].bitrate > max_bitrate) {
-                            vid = variants[j];
-                            max_bitrate = variants[j].bitrate;
+                    for (let k in variants) { // output highest quality video url
+                        if (variants[k].content_type == "video/mp4" &&
+                            variants[k].bitrate > max_bitrate) {
+                            vid = variants[k];
+                            max_bitrate = variants[k].bitrate;
                         }
                     } // for (j in varirify_credentials")
                     vid_obj.vid = vid.url;
