@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     let accs, ACC_LIMIT;
-    let j = 0; // count how many accounts have been processed
     const pic_url_mod = 7 // "_normal".length;
 
     let pages = [], currPage = 0;
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     retrieveBtn.addEventListener("click", () => {
         pages = [];
         let page = document.createElement("div");
-        j = 0;
+        let j = 0; // count how many accounts have been processed
 
         loading.style.display = "";
         retrieveBtn.style.display = "none";
@@ -272,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let acc = accs[tweets.id];
         let data = getVids(tweets.vids);
 
-        if (data.vids && data.vids.length > 0) {
+        if (data.vids.length > 0) {
             let box = acc.box;
             if (box.childElementCount > 2) box.removeChild(box.lastElementChild); // popping old vids
 
@@ -298,7 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function getVids(results) {
-        // results = results.vids;
         let output = {};
 
         if (results && results.length > 0) { // if tweets were returned
@@ -306,24 +304,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             for (i in results) { // look at each tweet
                 let entities = results[i].extended_entities
-                if (entities != undefined &&
-                    entities.media[0].type == "video") { // if tweet contains video
-                    let thumbnail = results[i].entities.media[0].media_url_https;
-                    let vid_obj = { thumbnail: thumbnail };
+                let thumbnail = results[i].entities.media[0].media_url_https;
+                let vid_obj = { thumbnail: thumbnail };
 
-                    let variants = entities.media[0].video_info.variants; // parse through video metadata
-                    let max_bitrate = -1
-                    let vid = variants[0];
-                    for (let k in variants) { // output highest quality video url
-                        if (variants[k].content_type == "video/mp4" &&
-                            variants[k].bitrate > max_bitrate) {
-                            vid = variants[k];
-                            max_bitrate = variants[k].bitrate;
-                        }
-                    } // for (j in varirify_credentials")
-                    vid_obj.vid = vid.url;
-                    output.vids.push(vid_obj);
-                } // if (entities != undefined && ...
+                let variants = entities.media[0].video_info.variants; // parse through video metadata
+                let max_bitrate = -1
+                let vid = variants[0];
+                for (let k in variants) { // output highest quality video url
+                    if (variants[k].content_type == "video/mp4" &&
+                        variants[k].bitrate > max_bitrate) {
+                        vid = variants[k];
+                        max_bitrate = variants[k].bitrate;
+                    }
+                } // for (j in varirify_credentials")
+                vid_obj.vid = vid.url;
+                output.vids.push(vid_obj);
             } // for (i in data)
         }
 
@@ -334,13 +329,13 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * Return array of site's cookies
      */
-    function getCookies() {
-        let cks = document.cookie;
-        if (cks == "") return [];
+    // function getCookies() {
+    //     let cks = document.cookie;
+    //     if (cks == "") return [];
 
-        let vals = cks.split(/=|; /);
-        return [vals[1], vals[3]];
-    }
+    //     let vals = cks.split(/=|; /);
+    //     return [vals[1], vals[3]];
+    // }
 
     function getLargerProfPic(url) {
         let format;
