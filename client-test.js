@@ -160,8 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log("signed in");
 
         showSignedInStatus(user)
-            .then(res => getAccs())
-            .catch(console.error);
+        .then(res => {
+            getAccs();
+            getTimeline();
+        })
+        .catch(console.error);
     }
 
 
@@ -246,6 +249,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("no-accs").style.display = "";
                 }
             });
+    }
+
+    function getTimeline() {
+        sendHttpGetReq("/get_timeline")
+        .then(res => {
+            console.log("timeline acquired");
+            console.log(res, "\n");
+        });
     }
 
     /**
