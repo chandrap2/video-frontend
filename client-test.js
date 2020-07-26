@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         // let space = document.createElement("div");
                         // space.className = "space";
                         let toggle_btn = document.createElement("div");
-                        toggle_btn.className = "collapse";
+                        toggle_btn.className = "collapse manipulator";
                         toggle_btn.addEventListener("click", () => {
                             let vids = box.children[2];
                             dropped_down = (vids.style.display == "");
