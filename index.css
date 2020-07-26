@@ -35,13 +35,6 @@ body > * {
 
 #sign-in > * {
 	float: left;
-	/* color: #638897;
-	padding: 13px 22px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-	border: none;
-	border-radius: 10px; */
 }
 
 #login-btn {
@@ -86,37 +79,9 @@ body > * {
 	height: 40px;
 }
 
-/* #input * {
-	display: inline-block;
-	color: #638897;
-	padding: 13px 22px;
-	margin: 0px 10px 0px 0px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-	border: none;
-	border-radius: 10px;
-} */
-
-/* #loading, #no-accs {
-	padding: 10px 19px;
-	border-style: solid;
-	border-width: 3px;
-} */
-
 #no-accs {
 	color: rgb(163, 45, 45)
 }
-
-/* #retrieve {
-	background-color: #a8e5ff;
-}
-
-#retrieve:hover {
-	background-color: #3391b9;
-	color: #174153;
-	cursor: pointer;
-} */
 
 #flip-page {
 	display: inline-block;
@@ -142,9 +107,7 @@ body > * {
 	cursor: pointer;
 }
 
-#results {
-	margin: 0px;
-}
+/* #results { margin: 0px; } */
 
 .result {
 	max-width: 1712px; /* each row contains 8 videos */
@@ -171,25 +134,11 @@ body > * {
 	border-radius: 5px;
 }
 
-.acc_header h2 {
-	margin: 5px;
-}
+.acc_header h2 { margin: 5px; }
 
-.acc_header img {
+.acc_header img, .collapse {
 	width: 40px;
 	height: 40px;
-}
-
-.collapse {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	background-color: #638897;
-}
-
-.collapse:hover {
-	background-color: #174153;
-	cursor: pointer;
 }
 
 video {
@@ -201,41 +150,37 @@ video {
 	cursor: auto;
 }
 
-video:fullscreen {
-	object-fit: contain;
-}
+video:fullscreen { object-fit: contain; }
 
-.big-button {
-	display: inline-block;
-	background-color: #a8e5ff;
-	color: #638897;
-	padding: 13px 22px;
-	/* margin: 0px 10px 0px 0px; */
-	text-align: center;
+.big-button, .manipulator, .nonclickable { display: inline-block; }
+
+.big-button, .nonclickable {
+  color: #638897;
+	margin: 0px;
 	font-size: 20px;
 	font-weight: bold;
-	border: none;
 	border-radius: 10px;
 }
 
+.big-button:hover, .manipulator:hover {	cursor: pointer; }
+
+.big-button {
+	background-color: #a8e5ff;
+	padding: 13px 22px;
+}
+
 .big-button:hover {
-	cursor: pointer;
-	background-color: #174153;
+	background-color: #3391b9;
+	color: #174153;
 }
 
-.manipulator {
-	display: inline-block;
-	background-color: #174153;
-	color: #638897;
-}
-
-.manipulator:hover {
-	cursor: pointer;
-	background-color: #174153;
-}
+.manipulator { background-color: #638897; }
+.manipulator:hover { background-color: #174153; }
 
 .nonclickable {
 	padding: 10px 19px;
+	font-size: 20px;
+	font-weight: bold;
 	border-style: solid;
 	border-width: 3px;
 }
