@@ -297,11 +297,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function getVids(results) {
-        let output = {};
+        let output = { vids: [] };
 
-        if (results && results.length > 0) { // if tweets were returned
-            output.vids = []
-
+        if (results.length > 0) { // if tweets were returned
             for (i in results) { // look at each tweet
                 let entities = results[i].extended_entities
                 let thumbnail = results[i].entities.media[0].media_url_https;
