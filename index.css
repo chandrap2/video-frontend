@@ -148,7 +148,9 @@ video:fullscreen { object-fit: contain; }
 	border-width: 3px;
 }
 
-.tab {
+#tabs * {
 	padding: 15px;
 	margin-right: 20px;
+	color: #ffffc9;
+	font-weight: bold;
 }
