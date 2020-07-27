@@ -64,16 +64,10 @@ body > * { margin-bottom: 20px; }
 }
 
 #flip-page > * {
-	display: inline-block;
-	padding: 0px;
 	margin-right: 14px;
-	border-radius: 10px;
 }
 
-.flip {
-	width: 60px;
-	height: 40px;
-}
+.flip {	width: 60px; height: 40px; }
 
 .result {
 	max-width: 1712px; /* each row contains 8 videos */
@@ -140,7 +134,10 @@ video:fullscreen { object-fit: contain; }
 	color: #174153;
 }
 
-.manipulator { background-color: #638897; }
+.manipulator {
+	background-color: #638897;
+  border-radius: 7px;
+}
 .manipulator:hover { background-color: #174153; }
 
 .nonclickable {
@@ -149,4 +146,9 @@ video:fullscreen { object-fit: contain; }
 	font-weight: bold;
 	border-style: solid;
 	border-width: 3px;
+}
+
+.tab {
+	padding: 15px;
+	margin-right: 20px;
 }
