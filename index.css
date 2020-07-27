@@ -162,10 +162,10 @@ video:fullscreen { object-fit: contain; }
 	padding: 15px;
 }
 
-#tab-accs {
+#tab-timeline {
 	border-radius: 10px 0px 0px 10px;
 }
 
-#tab-timeline {
+#tab-accs {
 	border-radius: 0px 10px 10px 0px;
 }

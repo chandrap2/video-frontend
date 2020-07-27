@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
 
+    const tabToggleStyle = "color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px;";
+
     /**
      *
      * EVENT HANDLERS
@@ -158,7 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function signedIn(user) {
         // console.log("signed in");
-
+        document.getElementById("tabs").style.display = "";
+        
         showSignedInStatus(user)
         .then(res => {
             getAccs();
