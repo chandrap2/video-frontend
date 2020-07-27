@@ -12,7 +12,9 @@ body * {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-body > * { margin-bottom: 20px; }
+body > *, #accs > *, #timeline > *{
+	margin-bottom: 20px;
+}
 
 #title {
 	display: inline-block;
@@ -136,6 +138,9 @@ video:fullscreen { object-fit: contain; }
 
 .manipulator {
 	background-color: #638897;
+	color: #ffffc9;
+	font-weight: bold;
+	text-align: center;
   border-radius: 7px;
 }
 .manipulator:hover { background-color: #174153; }
@@ -148,13 +153,13 @@ video:fullscreen { object-fit: contain; }
 	border-width: 3px;
 }
 
+#tabs {
+	margin-left: 800px;
+}
+
 #tabs * {
-	width: 170px;
+	width: 100px;
 	padding: 15px;
-/* 	margin-right: 20px; */
-	color: #ffffc9;
-	font-weight: bold;
-	text-align: center;
 }
 
 #tab-accs {
