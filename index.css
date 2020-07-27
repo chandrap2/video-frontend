@@ -12,9 +12,7 @@ body * {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-body > * {
-	margin-bottom: 20px;
-}
+body > * { margin-bottom: 20px; }
 
 #title {
 	display: inline-block;
@@ -33,24 +31,11 @@ body > * {
 	top: 5px;
 }
 
-#sign-in > * {
-	float: left;
-}
-
-#login-btn {
-	display: auto;
-	background-color: #a8e5ff;
-}
-
-#login-btn:hover {
-	background-color: #3391b9;
-	color: #174153;
-	cursor: pointer;
-}
+#sign-in > * { float: left; }
 
 #logout-btn {
 	float: right;
-	display: auto;
+/* 	display: auto; */
 	color: rgb(143, 55, 55);
 	background-color: rgb(247, 148, 148);
 }
@@ -61,16 +46,7 @@ body > * {
 	cursor: pointer;
 }
 
-#signed-in * {
-	vertical-align: middle;
-}
-
-#signed-in {
-	padding: 10px 19px;
-	margin-right: 14px;
-	border-style: solid;
-	border-width: 3px;
-}
+#signed-in * {	vertical-align: middle; }
 
 #user-pic {
 	padding: 0px;
@@ -79,9 +55,7 @@ body > * {
 	height: 40px;
 }
 
-#no-accs {
-	color: rgb(163, 45, 45)
-}
+#no-accs { color: rgb(163, 45, 45); }
 
 #flip-page {
 	display: inline-block;
@@ -99,15 +73,7 @@ body > * {
 .flip {
 	width: 60px;
 	height: 40px;
-	background-color: #638897;
 }
-
-.flip:hover {
-	background-color: #174153;
-	cursor: pointer;
-}
-
-/* #results { margin: 0px; } */
 
 .result {
 	max-width: 1712px; /* each row contains 8 videos */
