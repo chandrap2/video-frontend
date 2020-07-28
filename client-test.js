@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 acc_header.appendChild(accInfo);
                 acc_header.appendChild(toggle_btn);
 
-                let vid_obj = data.vids[i];
+                let vid_obj = data[i];
                 let vid_box = document.createElement("video");
                 vid_box.setAttribute("src", vid_obj.vid);
                 vid_box.setAttribute("width", 200);
