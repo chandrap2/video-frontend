@@ -206,7 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function signedIn(user) {
         // console.log("signed in");
         document.getElementById("tabs").style.display = "";
-        document.getElementById("accs").style.display = "none";
+        // document.getElementById("accs").style.display = "none";
+        document.getElementById("timeline").style.display = "";
         
         showSignedInStatus(user)
         .then(res => {
@@ -353,6 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 box.appendChild(vid_box);
 
                 df.appendChild(box);
+                df.appendChild(document.createElement("br"));
             }
 
             timeline_results.innerHTML = "";
