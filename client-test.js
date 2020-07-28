@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // console.log("timeline acquired");
 
             timeline_tweets = res.vids;
-            let data = getVids(timeline_tweets);
+            let data = getVids(timeline_tweets.vids).vids;
             let df = document.createDocumentFragment();
 
             for (let tweet in data) {
