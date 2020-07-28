@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let accs, ACC_LIMIT;
     const pic_url_mod = 7 // "_normal".length;
-
+    
     let pages = [], currPage = 0;
-
+    
     let user, user_pic;
     
     let signinBtn = document.getElementById("login-btn");
     let input = document.getElementById("input");
     let loading = document.getElementById("loading");
     let retrieveBtn = document.getElementById("retrieve");
+    
     let results_area = document.getElementById("results");
+    let accs, ACC_LIMIT;
+    
+    let timeline_results = document.getElementById("timeline-results");
+    let timeline_tweets;
     
     let auth_window;
 
@@ -299,8 +303,60 @@ document.addEventListener("DOMContentLoaded", () => {
     function getTimeline() {
         sendHttpGetReq("/get_timeline")
         .then(res => {
-            console.log("timeline acquired");
-            console.log(res, "\n");
+            // console.log("timeline acquired");
+
+            timeline_tweets = res.vids;
+            let data = getVids(timeline_tweets);
+            let df = document.createDocumentFragment();
+
+            for (let tweet in data) {
+                let user = timeline_tweets[tweet].user;
+
+                let box = document.createElement("div");
+                box.className = "result";
+
+                let acc_header = document.createElement("div");
+                acc_header.className = "acc_header";
+
+                let accInfo = document.createElement("h2");
+                accInfo.textContent = `${user.name} (@${user.screen_name})`;
+
+                let prof_pic = document.createElement("img");
+                let pic_url = getLargerProfPic(user.profile_image_url_https);
+                prof_pic.setAttribute("src", pic_url);
+
+                let toggle_btn = document.createElement("div");
+                toggle_btn.className = "collapse manipulator";
+                toggle_btn.addEventListener("click", () => {
+                    let vid = box.children[2];
+                    let dropped_down = (vid.style.display == "");
+
+                    vid.style.display = (dropped_down) ? "none" : "";
+                });
+
+                acc_header.appendChild(prof_pic);
+                acc_header.appendChild(accInfo);
+                acc_header.appendChild(toggle_btn);
+
+                let vid_obj = data.vids[i];
+                let vid_box = document.createElement("video");
+                vid_box.setAttribute("src", vid_obj.vid);
+                vid_box.setAttribute("width", 200);
+                vid_box.setAttribute("height", 200);
+                vid_box.setAttribute("controls", true);
+                vid_box.setAttribute("poster", vid_obj.thumbnail);
+                vid_box.setAttribute("preload", "none");
+                vid_box.style.display = "none";
+
+                box.appendChild(acc_header);
+                box.appendChild(document.createElement("br"));
+                box.appendChild(vid_box);
+
+                df.appendChild(box);
+            }
+
+            timeline_results.innerHTML = "";
+            timeline_results.appendChild(df);
         });
     }
 
