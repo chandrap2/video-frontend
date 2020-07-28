@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let loading = document.getElementById("loading");
     let retrieveBtn = document.getElementById("retrieve");
     let results_area = document.getElementById("results");
-
+    
     let auth_window;
 
     let isTimeline = true;
@@ -24,21 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isTimeline) {
             timelineTab.style.cssText = tabToggleStyle;
             accsTab.style.cssText = "";
-            isTimeline = true;
+            document.getElementById("accs").style.display = "none";
+            document.getElementById("timeline").style.display = "";
         }
+        
+        isTimeline = true;
     });
     
     let accsTab = document.getElementById("tab-accs");
     accsTab.addEventListener("click", () => {
         console.log("accs tab clicked");
-
+        
         if (isTimeline) {
             accsTab.style.cssText = tabToggleStyle;
             timelineTab.style.cssText = "";
-            isTimeline = false;
+            document.getElementById("timeline").style.display = "none";
+            document.getElementById("accs").style.display = "";
         }
+        
+        isTimeline = false;
     });
-
+    
     // Array.from(tabs).forEach(tab => {
     //     tab.addEventListener("click", () => {
     //         if (isTimelineTab && tab.id == "tab_accs") {
@@ -196,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function signedIn(user) {
         // console.log("signed in");
         document.getElementById("tabs").style.display = "";
+        document.getElementById("accs").style.display = "none";
         
         showSignedInStatus(user)
         .then(res => {
