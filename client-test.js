@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let pages = [], currPage = 0;
 
     let user, user_pic;
-
+    
     let signinBtn = document.getElementById("login-btn");
     let input = document.getElementById("input");
     let loading = document.getElementById("loading");
@@ -14,9 +14,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let auth_window;
 
+    let isTimeline = true;
+    const tabToggleStyle = "color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px; cursor: auto;";
+
+    let timelineTab = document.getElementById("tab-timeline");
+    timelineTab.addEventListener("click", () => {
+        console.log("timeline tab clicked");
+        
+        if (!isTimeline) {
+            timelineTab.style.cssText = tabToggleStyle;
+            accsTab.style.cssText = "";
+            isTimeline = true;
+        }
+    });
+    
+    let accsTab = document.getElementById("tab-accs");
+    accsTab.addEventListener("click", () => {
+        console.log("accs tab clicked");
+
+        if (isTimeline) {
+            accsTab.style.cssText = tabToggleStyle;
+            timelineTab.style.cssText = "";
+            isTimeline = false;
+        }
+    });
+
+    // Array.from(tabs).forEach(tab => {
+    //     tab.addEventListener("click", () => {
+    //         if (isTimelineTab && tab.id == "tab_accs") {
+    //             tab.style.cssText = "";
+    //             document.getE
+    //         } else if (!isTimelineTab && tab.id == "tab_timeline") {
+
+    //         }
+    //     });
+    // })
+
     let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
 
-    const tabToggleStyle = "color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px;";
 
     /**
      *
