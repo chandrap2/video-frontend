@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         // let space = document.createElement("div");
                         // space.className = "space";
-                        let toggle_btn = document.createElement("button");
+                        let toggle_btn = document.createElement("div");
                         toggle_btn.className = "collapse manipulator";
                         toggle_btn.addEventListener("click", () => {
                             let vids = box.children[2];
@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let pic_url = getLargerProfPic(user.profile_image_url_https);
                 prof_pic.setAttribute("src", pic_url);
 
-                let toggle_btn = document.createElement("button");
+                let toggle_btn = document.createElement("div");
                 toggle_btn.className = "collapse manipulator";
                 toggle_btn.addEventListener("click", () => {
                     let vid = box.children[2];

@@ -154,11 +154,11 @@ video:fullscreen { object-fit: contain; }
 }
 
 #tabs {
-	margin-left: 675px;
+	margin-left: 800px;
 }
 
 #tabs * {
-	width: 120px;
+	width: 100px;
 	padding: 15px;
 }
 
