@@ -11,28 +11,42 @@
   <div id="title"> <h1>I want this video.</h1> </div>
   
   <div id="sign-in">
-      <button id="login-btn" style="display: none;">Sign in</button>
-      <div id="signed-in" style="display: none;">
+      <div id="login-btn" class="big-button" style="display: none;">Sign in</div>
+      <div id="signed-in" class="nonclickable" style="display: none;">
         Signed in as
         <img id="user-pic" style="display: none;"></img>
       </div>
-      <button id="logout-btn" style="display: none;">Sign out</button>
+      <button id="logout-btn" class="big-button" style="display: none;">Sign out</button>
   </div>
   
   <br>
 
-	<div id="input" style="display: none;">
-    <p id="loading">Loading</p>
-    <p id="no-accs" style="display: none;">No accounts found</p>
-    <div id="retrieve" style="display: none;">Retrieve videos</div>
+  <div id="tabs" style="display: none;">
+    <div id="tab-timeline" class="manipulator"
+      style="color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px;">
+    Timeline</div>
+
+    <div id="tab-accs" class="manipulator">Accounts</div>
   </div>
 
-  <div id="flip-page" style="display: none;">
-    <div class="flip" id="left"></div>
-    <div class="flip" id="right"></div>
+  <div id="accs" style="display: none;">
+    <div id="input" style="display: none;">
+      <p id="loading" class="nonclickable">Loading</p>
+      <p id="no-accs" class="nonclickable" style="display: none;">No accounts found</p>
+      <div id="retrieve" class="big-button" style="display: none;">Retrieve videos</div>
+    </div>
+
+    <div id="flip-page" style="display: none;">
+      <div class="flip manipulator" id="left"></div>
+      <div class="flip manipulator" id="right"></div>
+    </div>
+
+    <div id="results"> </div>
   </div>
 
-  <div id="results"> </div>
+  <div id="timeline" style="display: none;">
+    <div id="timeline-results"> </div>
+  </div>
   
   <!-- <script src="client.js"></script> -->
   <script src="client-test.js"></script>
