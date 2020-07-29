@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let auth_window;
 
     let isTimeline = true;
-    const tabToggleStyle = "color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px; cursor: auto;";
+    const tabToggleStyle = "color: #638897; background-color: #ffffc9; cursor: auto;";
 
     let timelineTab = document.getElementById("tab-timeline");
     timelineTab.addEventListener("click", () => {
