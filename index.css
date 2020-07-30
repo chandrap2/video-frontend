@@ -9,7 +9,7 @@ body {
 }
 
 body * {
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-family: Raleway, sans-serif;
 }
 
 body > *, #accs > *, #timeline > *{
@@ -22,6 +22,8 @@ body > *, #accs > *, #timeline > *{
 }
 
 #title h1 {
+	font-family: Poppins, sans-serif;
+	font-weight: 600;
 	font-size: 55px;
 	margin: 0px;
 	color: #1780aa;
