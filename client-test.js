@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 accs.forEach(acc => {
                     let box = document.createElement("div");
                     box.className = "result";
-                    let acc_header = getAccHeader(acc);
+                    let acc_header = getAccHeader(acc, box);
 
                     box.appendChild(acc_header);
                     box.appendChild(document.createElement("br"));
@@ -273,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 box.className = "result";
                 let acc_header = getAccHeader(user, box);
                 let vid_box = getVideoElem(data[tweet]);
+                vid_box.style.display = "none";
 
                 box.appendChild(acc_header);
                 box.appendChild(document.createElement("br"));
