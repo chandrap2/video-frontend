@@ -1,22 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const pic_url_mod = 7 // "_normal".length;
-
-    let pages = [], currPage = 0;
-
-    let user, user_pic;
-
+    /** DOM references */
+    
     let signinBtn = document.getElementById("login-btn");
+    let user_pic;
+    
     let input = document.getElementById("input");
-    let loading = document.getElementById("loading");
+    let loadingAccs = document.getElementById("loading-accs");
+    let acc_results = document.getElementById("results");
     let retrieveBtn = document.getElementById("retrieve");
-
-    let results_area = document.getElementById("results");
-    let accs, ACC_LIMIT;
-
+    
+    let loadingTimeline = document.getElementById("loading-timeline");
     let timeline_results = document.getElementById("timeline-results");
-    let timeline_tweets;
+    
+    let accPages = [], currAccPage = 0;
+    let timelinePages = [], currTimelinePage = 0;
 
+    /*******************/
+
+    const pic_url_mod = 7 // "_normal".length;
+    
     let auth_window;
+    
+    let accs;
+    let ACC_LIMIT;
+
+    let timeline_tweets;
 
     let isTimeline = true;
     const tabToggleStyle = "color: #638897; background-color: #ffffc9; padding: 12px; border-style: solid; cursor: auto;";
@@ -75,14 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     retrieveBtn.addEventListener("click", () => {
-        pages = [];
+        accPages = [];
         let page = document.createElement("div");
         let j = 0; // count how many accounts have been processed
 
-        loading.style.display = "";
+        loadingAccs.style.display = "";
         retrieveBtn.style.display = "none";
 
-        results_area.innerHTML = ""; // clearing 'results' section
+        acc_results.innerHTML = ""; // clearing 'results' section
         document.getElementById("flip-page").style.display = "";
 
         for (let i = 0; i < ACC_LIMIT; i++) {
@@ -93,19 +101,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(j, res.id);
 
                 if (page.childElementCount == 14) {
-                    pages.push(page);
+                    accPages.push(page);
                     page = document.createElement("div");
-                    if (pages.length == 1) results_area.appendChild(pages[0]);
+                    if (accPages.length == 1) acc_results.appendChild(accPages[0]);
                 }
 
                 if (j == ACC_LIMIT) {
                     setTimeout(() => {
-                        loading.style.display = "none";
+                        loadingAccs.style.display = "none";
                         retrieveBtn.style.display = "";
 
                         if (page.childElementCount % 14 != 0) {
-                            pages.push(page);
-                            if (pages.length == 1) results_area.appendChild(pages[0]);
+                            accPages.push(page);
+                            if (accPages.length == 1) acc_results.appendChild(accPages[0]);
                         }
                     }, 500);
                 }
@@ -114,19 +122,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("left").addEventListener("click", () => {
-        currPage = (currPage == 0) ? pages.length - 1 : currPage - 1;
+        currAccPage = (currAccPage == 0) ? accPages.length - 1 : currAccPage - 1;
         let df = document.createDocumentFragment();
-        df.appendChild(pages[currPage]);
-        results_area.innerHTML = "";
-        results_area.appendChild(df);
+        df.appendChild(accPages[currAccPage]);
+        acc_results.innerHTML = "";
+        acc_results.appendChild(df);
     });
 
     document.getElementById("right").addEventListener("click", () => {
-        currPage = (currPage == pages.length - 1) ? 0 : currPage + 1;
+        currAccPage = (currAccPage == accPages.length - 1) ? 0 : currAccPage + 1;
         let df = document.createDocumentFragment();
-        df.appendChild(pages[currPage]);
-        results_area.innerHTML = "";
-        results_area.appendChild(df);
+        df.appendChild(accPages[currAccPage]);
+        acc_results.innerHTML = "";
+        acc_results.appendChild(df);
     });
 
     /**
@@ -246,14 +254,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 console.log(`done processing, ${accs.length} accs found`);
 
-                loading.style.display = "none";
+                loadingAccs.style.display = "none";
                 retrieveBtn.style.display = "";
 
                 // ACC_LIMIT = accs.length;
                 ACC_LIMIT = Math.min(accs.length, 200);
                 // ACC_LIMIT = Math.min(accs.length, 50);
             } else {
-                loading.style.display = "none";
+                loadingAccs.style.display = "none";
                 document.getElementById("no-accs").style.display = "";
             }
         });
