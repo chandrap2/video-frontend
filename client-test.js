@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     const pic_url_mod = 7 // "_normal".length;
-    
+
     let pages = [], currPage = 0;
-    
+
     let user, user_pic;
-    
+
     let signinBtn = document.getElementById("login-btn");
     let input = document.getElementById("input");
     let loading = document.getElementById("loading");
     let retrieveBtn = document.getElementById("retrieve");
-    
+
     let results_area = document.getElementById("results");
     let accs, ACC_LIMIT;
-    
+
     let timeline_results = document.getElementById("timeline-results");
     let timeline_tweets;
-    
+
     let auth_window;
 
     let isTimeline = true;
@@ -24,41 +24,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let timelineTab = document.getElementById("tab-timeline");
     timelineTab.addEventListener("click", () => {
         console.log("timeline tab clicked");
-        
+
         if (!isTimeline) {
             timelineTab.style.cssText = tabToggleStyle;
             accsTab.style.cssText = "";
             document.getElementById("accs").style.display = "none";
             document.getElementById("timeline").style.display = "";
         }
-        
+
         isTimeline = true;
     });
-    
+
     let accsTab = document.getElementById("tab-accs");
     accsTab.addEventListener("click", () => {
         console.log("accs tab clicked");
-        
+
         if (isTimeline) {
             accsTab.style.cssText = tabToggleStyle;
             timelineTab.style.cssText = "";
             document.getElementById("timeline").style.display = "none";
             document.getElementById("accs").style.display = "";
         }
-        
+
         isTimeline = false;
     });
-    
-    // Array.from(tabs).forEach(tab => {
-    //     tab.addEventListener("click", () => {
-    //         if (isTimelineTab && tab.id == "tab_accs") {
-    //             tab.style.cssText = "";
-    //             document.getE
-    //         } else if (!isTimelineTab && tab.id == "tab_timeline") {
-
-    //         }
-    //     });
-    // })
 
     let apiURL = "https://1poxidle5i.execute-api.us-west-2.amazonaws.com/production";
 
@@ -72,17 +61,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     signinBtn.addEventListener("click", () => {
         sendHttpGetReq("/get_req_token")
-            .then(res => {
-                let req_token = res;
-                // console.log(req_token);
+        .then(res => {
+            let req_token = res;
+            // console.log(req_token);
 
-                let url = new URL("https://api.twitter.com/oauth/authenticate");
-                url.searchParams.set("oauth_token", req_token.oauth_token);
-                // console.log(url);
+            let url = new URL("https://api.twitter.com/oauth/authenticate");
+            url.searchParams.set("oauth_token", req_token.oauth_token);
+            // console.log(url);
 
-                let params = "menubar=no,toolbar=no,width=600,height=600";
-                auth_window = window.open(url, "test", params);
-            });
+            let params = "menubar=no,toolbar=no,width=600,height=600";
+            auth_window = window.open(url, "test", params);
+        });
     });
 
     retrieveBtn.addEventListener("click", () => {
@@ -97,33 +86,30 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("flip-page").style.display = "";
 
         for (let i = 0; i < ACC_LIMIT; i++) {
-            // for (let i = 29; i >= 0; i--) {
             sendHttpGetReq(`/get_vids?acc_name=${accs[i].screen_name}&id=${i}`)
-                .then(res => {
-                    // console.log(res);
-                    outputResults(res, page);
-                    j++;
-                    console.log(j, res.id);
+            .then(res => {
+                outputAccVids(res, page);
+                j++;
+                console.log(j, res.id);
 
-                    if (page.childElementCount == 16) {
-                        pages.push(page);
-                        page = document.createElement("div");
-                        if (pages.length == 1) results_area.appendChild(pages[0]);
-                    }
+                if (page.childElementCount == 14) {
+                    pages.push(page);
+                    page = document.createElement("div");
+                    if (pages.length == 1) results_area.appendChild(pages[0]);
+                }
 
-                    if (j == ACC_LIMIT) {
-                        setTimeout(() => {
-                            loading.style.display = "none";
-                            retrieveBtn.style.display = "";
+                if (j == ACC_LIMIT) {
+                    setTimeout(() => {
+                        loading.style.display = "none";
+                        retrieveBtn.style.display = "";
 
-                            if (page.childElementCount % 16 != 0) {
-                                // console.log(pages);
-                                pages.push(page);
-                                if (pages.length == 1) results_area.appendChild(pages[0]);
-                            }
-                        }, 500);
-                    }
-                });
+                        if (page.childElementCount % 14 != 0) {
+                            pages.push(page);
+                            if (pages.length == 1) results_area.appendChild(pages[0]);
+                        }
+                    }, 500);
+                }
+            });
         }
     });
 
@@ -165,9 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(err);
 
         waitForLogin()
-            .then(res => sendHttpGetReq("/verify"))
-            .then(res => signedIn(res))
-            .catch(console.error);
+        .then(res => sendHttpGetReq("/verify"))
+        .then(res => signedIn(res))
+        .catch(console.error);
     });
 
     /**
@@ -244,70 +230,40 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log("getting accs");
 
         sendHttpGetReq("/get_accs")
-            .then(res => {
-                // let results = res;
-                accs = res.accs;
+        .then(res => {
+            accs = res;
 
-                if (accs.length > 0) {
-                    // accs = results.accs;
-                    accs.forEach(acc => {
-                        let box = document.createElement("div");
-                        box.className = "result";
+            if (accs.length > 0) {
+                accs.forEach(acc => {
+                    let box = document.createElement("div");
+                    box.className = "result";
+                    let acc_header = getAccHeader(acc);
 
-                        let acc_header = document.createElement("div");
-                        acc_header.className = "acc_header";
+                    box.appendChild(acc_header);
+                    box.appendChild(document.createElement("br"));
 
-                        let accInfo = document.createElement("h2");
-                        accInfo.textContent = `${acc.name} (@${acc.screen_name})`;
+                    acc.box = box;
+                });
+                console.log(`done processing, ${accs.length} accs found`);
 
-                        let prof_pic = document.createElement("img");
-                        let pic_url = getLargerProfPic(acc.profile_image_url_https);
-                        prof_pic.setAttribute("src", pic_url);
+                loading.style.display = "none";
+                retrieveBtn.style.display = "";
 
-                        // let space = document.createElement("div");
-                        // space.className = "space";
-                        let toggle_btn = document.createElement("div");
-                        toggle_btn.className = "collapse manipulator";
-                        toggle_btn.addEventListener("click", () => {
-                            let vids = box.children[2];
-                            dropped_down = (vids.style.display == "");
-
-                            vids.style.display = (dropped_down) ? "none" : "";
-                        });
-
-                        // acc_header.appendChild(space);
-                        acc_header.appendChild(prof_pic);
-                        acc_header.appendChild(accInfo);
-                        acc_header.appendChild(toggle_btn);
-
-                        box.appendChild(acc_header);
-                        box.appendChild(document.createElement("br"));
-
-                        acc.box = box;
-                    });
-                    // results_area.appendChild(df);
-                    console.log(`done processing, ${accs.length} accs found`);
-
-                    loading.style.display = "none";
-                    retrieveBtn.style.display = "";
-
-                    // ACC_LIMIT = accs.length;
-                    ACC_LIMIT = Math.min(accs.length, 200);
-                    // ACC_LIMIT = Math.min(accs.length, 50);
-                } else {
-                    loading.style.display = "none";
-                    document.getElementById("no-accs").style.display = "";
-                }
-            });
+                // ACC_LIMIT = accs.length;
+                ACC_LIMIT = Math.min(accs.length, 200);
+                // ACC_LIMIT = Math.min(accs.length, 50);
+            } else {
+                loading.style.display = "none";
+                document.getElementById("no-accs").style.display = "";
+            }
+        });
     }
 
     function getTimeline() {
         sendHttpGetReq("/get_timeline")
         .then(res => {
-            // console.log("timeline acquired");
-
-            timeline_tweets = res.vids;
-            let data = getVids(timeline_tweets).vids;
+            timeline_tweets = res;
+            let data = getVids(timeline_tweets);
             let df = document.createDocumentFragment();
 
             for (let tweet in data) {
@@ -315,39 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let box = document.createElement("div");
                 box.className = "result";
-
-                let acc_header = document.createElement("div");
-                acc_header.className = "acc_header";
-
-                let accInfo = document.createElement("h2");
-                accInfo.textContent = `${user.name} (@${user.screen_name})`;
-
-                let prof_pic = document.createElement("img");
-                let pic_url = getLargerProfPic(user.profile_image_url_https);
-                prof_pic.setAttribute("src", pic_url);
-
-                let toggle_btn = document.createElement("div");
-                toggle_btn.className = "collapse manipulator";
-                toggle_btn.addEventListener("click", () => {
-                    let vid = box.children[2];
-                    let dropped_down = (vid.style.display == "");
-
-                    vid.style.display = (dropped_down) ? "none" : "";
-                });
-
-                acc_header.appendChild(prof_pic);
-                acc_header.appendChild(accInfo);
-                acc_header.appendChild(toggle_btn);
-
-                let vid_obj = data[tweet];
-                let vid_box = document.createElement("video");
-                vid_box.setAttribute("src", vid_obj.vid);
-                vid_box.setAttribute("width", 200);
-                vid_box.setAttribute("height", 200);
-                vid_box.setAttribute("controls", true);
-                vid_box.setAttribute("poster", vid_obj.thumbnail);
-                vid_box.setAttribute("preload", "none");
-                vid_box.style.display = "none";
+                let acc_header = getAccHeader(user, box);
+                let vid_box = getVideoElem(data[tweet]);
 
                 box.appendChild(acc_header);
                 box.appendChild(document.createElement("br"));
@@ -369,9 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     async function sendHttpGetReq(endpoint) {
         let response = await fetch(apiURL + endpoint, { credentials: "include" });
-        // console.log("response:", typeof(response))
         response = await response.json();
-        // console.log(`\"${endpoint}\" response:`, response);
         return response;
     }
 
@@ -381,91 +304,96 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {Object} data 
      * @param {HTMLElement} df 
      */
-    let outputResults = (tweets, df) => {
+    function outputAccVids(tweets, df) {
         let acc = accs[tweets.id];
         let data = getVids(tweets.vids);
 
-        if (data.vids.length > 0) {
+        if (data.length > 0) {
             let box = acc.box;
             if (box.childElementCount > 2) box.removeChild(box.lastElementChild); // popping old vids
 
             let vids = document.createElement("div");
-            let vid_box;
-            for (let i in data.vids) {
-                vid_box = document.createElement("video");
-                vid_box.setAttribute("src", data.vids[i].vid);
-                vid_box.setAttribute("width", 200);
-                vid_box.setAttribute("height", 200);
-                vid_box.setAttribute("controls", true);
-                vid_box.setAttribute("poster", data.vids[i].thumbnail);
-                vid_box.setAttribute("preload", "none");
-
-                vids.appendChild(vid_box);
-            }
+            
+            data.forEach(vid => vids.appendChild( getVideoElem(vid) ));
+            
             vids.style.display = "none";
             box.appendChild(vids);
-
+            
             df.appendChild(box);
             df.appendChild(document.createElement("br"));
         }
     }
 
-    function getVids(results) {
-        let output = { vids: [] };
+    function getVids(tweets) {
+        let vids = [];
 
-        if (results.length > 0) { // if tweets were returned
-            for (i in results) { // look at each tweet
-                let entities = results[i].extended_entities
-                let thumbnail = results[i].entities.media[0].media_url_https;
-                let vid_obj = { thumbnail: thumbnail };
+        if (tweets.length > 0) { // if tweets were returned
+            tweets.forEach(tweet => {
+                let entities = tweet.extended_entities;
+                let thumbnail = tweet.entities.media[0].media_url_https;
 
                 let variants = entities.media[0].video_info.variants; // parse through video metadata
-                let max_bitrate = -1
+                let max_bitrate = -1;
                 let vid = variants[0];
-                for (let k in variants) { // output highest quality video url
-                    if (variants[k].content_type == "video/mp4" &&
-                        variants[k].bitrate > max_bitrate) {
-                        vid = variants[k];
-                        max_bitrate = variants[k].bitrate;
+
+                variants.forEach(variant => {
+                    if (variant.content_type == "video/mp4" &&
+                        variant.bitrate > max_bitrate) {
+                        max_bitrate = variant.bitrate;
+                        vid = variant;
                     }
-                } // for (j in varirify_credentials")
-                vid_obj.vid = vid.url;
-                output.vids.push(vid_obj);
-            } // for (i in data)
+                });
+
+                vids.push({ vid: vid.url, thumbnail: thumbnail });
+            });
         }
 
-        // console.log(output, "\n");
-        return output;
+        return vids;
     }
-
-    /**
-     * Return array of site's cookies
-     */
-    // function getCookies() {
-    //     let cks = document.cookie;
-    //     if (cks == "") return [];
-
-    //     let vals = cks.split(/=|; /);
-    //     return [vals[1], vals[3]];
-    // }
 
     function getLargerProfPic(url) {
         let format;
-        if (url[url.length - 4] == ".") {
-            format = url.substring(url.length - 4);
-        } else {
-            format = url.substring(url.length - 5);
-        }
+        if (url[url.length - 4] == ".") format = url.substring(url.length - 4);
+        else format = url.substring(url.length - 5);
+
         url = url.substring(0, url.length - pic_url_mod - format.length) + "_bigger" + format;
-        
         return url;
     }
 
-    // function removeListener(element, listener) {
+    function getAccHeader(userObj, resultBox) {
+        let acc_header = document.createElement("div");
+        acc_header.className = "acc_header";
 
-    // }
+        let accInfo = document.createElement("h2");
+        accInfo.textContent = `${userObj.name} (@${userObj.screen_name})`;
 
-    // function toggleEleme(element) {
+        let prof_pic = document.createElement("img");
+        let pic_url = getLargerProfPic(userObj.profile_image_url_https);
+        prof_pic.setAttribute("src", pic_url);
 
-    // }
+        let toggle_btn = document.createElement("div");
+        toggle_btn.className = "collapse manipulator";
+        toggle_btn.addEventListener("click", () => {
+            let vid = resultBox.children[2];
+            let dropped_down = (vid.style.display == "");
+
+            vid.style.display = (dropped_down) ? "none" : "";
+        });
+
+        acc_header.appendChild(prof_pic);
+        acc_header.appendChild(accInfo);
+        acc_header.appendChild(toggle_btn);
+        return acc_header;
+    }
+
+    function getVideoElem(vidObj) {
+        let vid_box = document.createElement("video");
+        vid_box.setAttribute("src", vidObj.vid);
+        vid_box.setAttribute("poster", vidObj.thumbnail);
+        vid_box.setAttribute("preload", "none");
+        vid_box.setAttribute("width", 200);
+        vid_box.setAttribute("height", 200);
+        vid_box.setAttribute("controls", true);
+        return vid_box;
+    }
 });
