@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let accPages = [], currAccPage = 0;
     let timelinePages = [], currTimelinePage = 0;
 
-    /*******************/
+    /* ***************** */
 
     const pic_url_mod = 7 // "_normal".length;
     
