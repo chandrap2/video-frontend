@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
             box.appendChild(vids);
             
             df.appendChild(box);
-            df.appendChild(doJavacument.createElement("br"));
+            df.appendChild(document.createElement("br"));
         }
     }
 
