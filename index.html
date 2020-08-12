@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&amp;family=Raleway:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" type="text/css" title="Cool stylesheet" href="index.css">
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+
   <title>I want this video</title>
 </head>
 
 <body>
-  <div id="title"> <h1>I want this video.</h1> </div>
+  <div id="title"> <h1>I want this video</h1> </div>
   
   <div id="sign-in">
       <div id="login-btn" class="big-button" style="display: none;">Sign in</div>
@@ -23,7 +32,7 @@
 
   <div id="tabs" style="display: none;">
     <div id="tab-timeline" class="manipulator"
-      style="color: #638897;background-color: #ffffc9;border-style: solid;padding: 12px;">
+      style="color: #638897; background-color: #ffffc9; padding: 12px; border-style: solid; cursor: auto;">
     Timeline</div>
 
     <div id="tab-accs" class="manipulator">Accounts</div>
@@ -31,24 +40,27 @@
 
   <div id="accs" style="display: none;">
     <div id="input" style="display: none;">
-      <p id="loading" class="nonclickable">Loading</p>
+      <p id="loading-accs" class="nonclickable">Loading</p>
       <p id="no-accs" class="nonclickable" style="display: none;">No accounts found</p>
       <div id="retrieve" class="big-button" style="display: none;">Retrieve videos</div>
     </div>
-
+    
     <div id="flip-page" style="display: none;">
       <div class="flip manipulator" id="left"></div>
       <div class="flip manipulator" id="right"></div>
     </div>
-
+    
     <div id="results"> </div>
   </div>
-
+  
   <div id="timeline" style="display: none;">
+    <p id="loading-timeline" class="nonclickable" style="display: none;">
+      Loading
+    </p>
+    
     <div id="timeline-results"> </div>
   </div>
   
-  <!-- <script src="client.js"></script> -->
   <script src="client-test.js"></script>
 </body>
 
