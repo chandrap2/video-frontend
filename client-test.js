@@ -98,9 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => {
                 outputAccVids(res, page);
                 j++;
-                console.log(j, res.id);
+                // console.log(j, res.id);
 
                 if (page.childElementCount == 14) {
+                    page.removeChild(page.lastChild);
+                    
                     accPages.push(page);
                     page = document.createElement("div");
                     if (accPages.length == 1) acc_results.appendChild(accPages[0]);
