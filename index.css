@@ -100,6 +100,12 @@ body > *, #accs > *, #timeline > * { margin-bottom: 20px; }
 	height: 40px;
 }
 
+.vid-container {
+	max-height: 215px;
+	overflow: hidden scroll;
+	border-radius: 15px;
+}
+
 video {
 	display: inline-block;
 	padding: 0px;
@@ -169,6 +175,6 @@ video:fullscreen { object-fit: contain; }
 	border-radius: 0px 10px 10px 0px;
 }
 
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #0000004a; }
-::-webkit-scrollbar-thumb { background: #0000006e; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0000002e; border-radius: 5px;}
+::-webkit-scrollbar-thumb { background: #0000003b; border-radius: 5px; }

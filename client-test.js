@@ -324,6 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (box.childElementCount > 2) box.removeChild(box.lastElementChild); // popping old vids
 
             let vids = document.createElement("div");
+            vids.className = "vid-container";
             
             data.forEach(vid => vids.appendChild( getVideoElem(vid) ));
             
