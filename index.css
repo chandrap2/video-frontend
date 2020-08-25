@@ -102,7 +102,7 @@ body > *, #accs > *, #timeline > * { margin-bottom: 15px; }
 }
 
 .vid-container {
-	max-height: 215px;
+	max-height: 220px;
 	overflow: hidden scroll;
 	border-radius: 15px;
 }
