@@ -383,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let pic_url = getLargerProfPic(userObj.profile_image_url_https);
         prof_pic.setAttribute("src", pic_url);
 
-        let toggle_btn = document.createElement("div");
+        let toggle_btn = document.createElement("button");
         toggle_btn.className = "collapse manipulator";
         toggle_btn.addEventListener("click", () => {
             let vid = resultBox.children[2];
